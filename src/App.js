@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import "./App.css";
+import { Loader } from "react-feather";
+
 import Quotes from "./components/quotes/Quotes";
 
-import { Loader } from "react-feather";
+import "./App.css";
+
 
 function App() {
   const [quotes, setQuotes] = useState([]);
@@ -30,7 +32,8 @@ function App() {
 
   useEffect(()=> {
     fetchQuotes();
-  }, [])
+  }, []);
+  
   return (
     <div className='App'>
       <Header />
