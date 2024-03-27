@@ -2,10 +2,10 @@ import React from 'react';
 import QuoteCard from './QuoteCard';
 import CategoryForm from './CategoryForm';
 
-const Quotes = ({ quotes, category, categories, handleCategoryChange, addToFavorites }) => {
+const Quotes = ({ quotes, category, categories, handleCategoryChange, addToFavorites, favoriteQuotes }) => {
   
 	const renderQuoteCards = (quote) => {
-		return <QuoteCard key={quote.id} quote={quote} addToFavorites={addToFavorites} />;
+		return <QuoteCard key={quote.id} quote={quote} addToFavorites={addToFavorites} favoriteQuotes={favoriteQuotes} />;
 	};
 
 	return (
