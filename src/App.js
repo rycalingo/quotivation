@@ -6,6 +6,8 @@ import { Loader } from 'react-feather';
 import Quotes from './components/quotes/Quotes';
 import FavoriteQuotes from './components/quotes/FavoriteQuotes';
 
+import Message from './components/Message'
+
 import './App.css';
 
 function App() {
@@ -18,6 +20,9 @@ function App() {
 	const maxFaves = 3;
 
 	const filteredQuotes = category !== 'All' ? quotes.filter((quote) => quote.categories.includes(category)) : quotes;
+
+	const [messageText, setMessageText] = useState("");
+	const [showMessage	, setShowMessage] = useState(false);
 
 	const quotesUrl =
 		'https://gist.githubusercontent.com/skillcrush-curriculum/6365d193df80174943f6664c7c6dbadf/raw/1f1e06df2f4fc3c2ef4c30a3a4010149f270c0e0/quotes.js';
@@ -45,12 +50,15 @@ function App() {
 		const alreadyFavorite = favoriteQuotes.find((q) => q.id === selectedQuote.id);
 
 		if (alreadyFavorite) {
-			console.log('This quote is already in your favorites! Choose another');
+			setMessageText('This quote is already in your favorites! Choose another.');
+			setShowMessage(true);
 		} else if (favoriteQuotes.length < maxFaves) {
 			setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
-			console.log('Added to favorites!');
+			setMessageText('Added to favorites!');
+			setShowMessage(true);
 		} else {
-			console.log('Max number of Favorite Quotes reached. Please delete one to add another!');
+			setMessageText('Max number of Favorite Quotes reached. Please delete one to add another!');
+			setShowMessage(true);
 		}
 	};
 
@@ -59,12 +67,15 @@ function App() {
 		setFavoriteQuotes(updatedFaves);
 	};
 
+	const removeMessage = () => setShowMessage(false);;
+
 	useEffect(() => {
 		fetchQuotes();
 	}, []);
 
 	return (
 		<div className='App'>
+		{showMessage && <Message messageText={messageText} removeMessage={removeMessage} />}
 			<Header />
 			<main>
 				<FavoriteQuotes favoriteQuotes={favoriteQuotes} maxFaves={maxFaves} removeFromFavorites={removeFromFavorites} />
