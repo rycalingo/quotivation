@@ -1,10 +1,10 @@
 import React from 'react';
 
-const FavoriteQuoteCard = ({ quote, removeFromFavorites }) => {
+const FavoriteQuoteCard = ({ quote, removeFromFavorites, listPosition }) => {
 	const { author, text, id } = quote;
 
 	return (
-		<li className='quote-card'>
+		<li className='quote-card listPosition' data-list-position={listPosition}>
 			<span className='close-quote' onClick={() => removeFromFavorites(id)}>
 				x
 			</span>

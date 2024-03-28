@@ -7,13 +7,14 @@ const Quotes = ({ quotes, category, categories, handleCategoryChange, addToFavor
 	const renderQuoteCards = (quote) => {
 		return <QuoteCard key={quote.id} quote={quote} addToFavorites={addToFavorites} favoriteQuotes={favoriteQuotes} />;
 	};
-
+ 
 	return (
 		<section className='all-quotes'>
 			<div className='quotes wrapper'>
 				<div className='category-header'>
 					<h2>Pick your Favorite Quotes Below</h2>
-					<p>Browse through your collection of quotes</p>
+					<p>You have {quotes.length > 1 && 'a collection of'} {quotes.length} great
+					{category !== categories[0] && category} quote{quotes.length !== 1 && 's'}!</p>
 					<CategoryForm	
 						category={category} categories={categories} handleCategoryChange={handleCategoryChange}
 					/> 

@@ -50,8 +50,7 @@ function App() {
 		const alreadyFavorite = favoriteQuotes.find((q) => q.id === selectedQuote.id);
 
 		if (alreadyFavorite) {
-			setMessageText('This quote is already in your favorites! Choose another.');
-			setShowMessage(true);
+			removeFromFavorites(quoteId);
 		} else if (favoriteQuotes.length < maxFaves) {
 			setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
 			setMessageText('Added to favorites!');
@@ -71,7 +70,14 @@ function App() {
 
 	useEffect(() => {
 		fetchQuotes();
+		const data = localStorage.getItem('favoriteQuotes');
+		if (data) setFavoriteQuotes(JSON.parse(data));
+
 	}, []);
+
+	useEffect(() => {
+		window.localStorage.setItem('favoriteQuotes', JSON.stringify(favoriteQuotes));
+	}, [favoriteQuotes]);
 
 	return (
 		<div className='App'>
